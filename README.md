@@ -73,3 +73,9 @@ précédent / suivant.
 - Ce dossier est distinct des modules de `loloz3/ianseo-addon` : la mise à jour
   GitHub de l'addon (`Modules/Custom/aide/github_update.php`) ne doit pas
   l'écraser. Ne pas le déplacer dans un des dossiers de l'addon.
+
+## Licence
+
+MIT — voir [LICENSE](LICENSE). Réutilisation, modification et redistribution
+libres, y compris pour un autre club, à condition de conserver la notice de
+copyright.
