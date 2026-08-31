@@ -42,7 +42,7 @@ echo json_encode(array(
     'dist'       => $cfg['dist'],
     'goldLabel'  => $Tour->ToGolds !== '' ? $Tour->ToGolds : '10+',
     'xnineLabel' => $Tour->ToXNine !== '' ? $Tour->ToXNine : 'X',
-    'rotate'     => $cfg['rotate'],
+    'scrollsec'  => $cfg['scrollsec'],
     'refresh'    => $cfg['refresh'],
     'rows'       => $cfg['rows'],
     'lastUpdate' => $rank['lastUpdate'],

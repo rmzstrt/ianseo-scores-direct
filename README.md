@@ -28,8 +28,20 @@ Testé sur IANSEO 2026-03-01 (rev 319), PHP 8.2, MariaDB.
 
 ## Fonctionnement
 
-`live.php` interroge `data.php` toutes les *n* secondes et fait défiler les
-épreuves. Le classement vient du moteur officiel d'IANSEO
+Toutes les épreuves sont rendues à la suite dans un **seul flux continu**, qui
+défile vers le haut et reboucle sans coupure : le contenu est rendu deux fois,
+et quand la première copie sort par le haut, on retranche exactement sa hauteur
+au décalage — la seconde occupe alors la même position au pixel près. Le titre
+en haut de l'écran suit l'épreuve en cours de passage.
+
+Le défilement est piloté par `setInterval` et non par `requestAnimationFrame` :
+rAF est suspendu dès que la fenêtre passe à l'arrière-plan, ce qui figerait un
+écran laissé seul. L'avancement se calcule sur le temps réellement écoulé, avec
+un tic plafonné à une seconde — les navigateurs ralentissent les minuteries à
+1 Hz en arrière-plan, et la vitesse reste juste dans ce régime.
+
+`live.php` interroge `data.php` toutes les *n* secondes. Le classement vient du
+moteur officiel d'IANSEO
 (`Obj_RankFactory::create('Abs')`, table `Individuals`), que le cœur recalcule à
 chaque enregistrement de feuille de marque (`Qualification/UpdateQuals.php`) ou
 de flèche ISK (`Qualification/UpdateArrow.php`). Le module ne calcule ni
@@ -50,7 +62,7 @@ simulation) donnent donc un score juste avec un **rang à 0**. Dans ce cas :
 ## Réglages
 
 Menu **Sorties → Scores en direct**. Ils sont stockés dans `ModulesParameters`
-sous le module `ianselp`, par tournoi : `events`, `rotate`, `refresh`, `rows`,
+sous le module `ianselp`, par tournoi : `events`, `scrollsec`, `refresh`, `rows`,
 `dist`, `title`. Aucune table n'est créée.
 
 ## Affichage sur un autre poste
@@ -62,8 +74,8 @@ sous le module `ianselp`, par tournoi : `events`, `rotate`, `refresh`, `rows`,
 Ajouter `&demo=1` pour un jeu de données fictives (réglage du vidéoprojecteur
 avant le concours, sans toucher à la base).
 
-Raccourcis clavier : **F** plein écran · **Espace** pause · **← →** écran
-précédent / suivant.
+Raccourcis clavier : **F** plein écran · **Espace** pause · **← →** épreuve
+précédente / suivante.
 
 ## Notes
 

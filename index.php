@@ -38,12 +38,12 @@ if (!empty($_POST['save'])) {
     }
 
     ianselp_SaveConfig($TourId, array(
-        'events'  => $events,
-        'rotate'  => isset($_POST['rotate'])  ? (int)$_POST['rotate']  : 12,
-        'refresh' => isset($_POST['refresh']) ? (int)$_POST['refresh'] : 10,
-        'rows'    => isset($_POST['rows'])    ? (int)$_POST['rows']    : 12,
-        'dist'    => isset($_POST['dist'])    ? (int)$_POST['dist']    : 0,
-        'title'   => isset($_POST['title'])   ? trim($_POST['title'])  : '',
+        'events'    => $events,
+        'scrollsec' => isset($_POST['scrollsec']) ? (int)$_POST['scrollsec'] : 20,
+        'refresh'   => isset($_POST['refresh'])   ? (int)$_POST['refresh']   : 10,
+        'rows'      => isset($_POST['rows'])      ? (int)$_POST['rows']      : 12,
+        'dist'      => isset($_POST['dist'])      ? (int)$_POST['dist']      : 0,
+        'title'     => isset($_POST['title'])     ? trim($_POST['title'])    : '',
     ));
     $Saved = true;
 }
@@ -163,13 +163,19 @@ include('Common/Templates/head.php');
     </tr>
 
     <tr class="Modifica">
-        <td>Lignes par écran</td>
-        <td><input type="number" name="rows" min="4" max="40" value="<?php echo (int)$cfg['rows']; ?>"></td>
+        <td>Lignes visibles à l'écran</td>
+        <td>
+            <input type="number" name="rows" min="4" max="40" value="<?php echo (int)$cfg['rows']; ?>">
+            <span style="color:#777;">(pilote la taille du texte : moins de lignes = plus gros)</span>
+        </td>
     </tr>
 
     <tr>
-        <td>Durée d'un écran (secondes)</td>
-        <td><input type="number" name="rotate" min="3" max="120" value="<?php echo (int)$cfg['rotate']; ?>"></td>
+        <td>Vitesse de défilement</td>
+        <td>
+            <input type="number" name="scrollsec" min="5" max="120" value="<?php echo (int)$cfg['scrollsec']; ?>">
+            <span style="color:#777;">secondes pour faire défiler une hauteur d'écran — plus grand = plus lent</span>
+        </td>
     </tr>
 
     <tr class="Modifica">

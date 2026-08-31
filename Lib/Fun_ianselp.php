@@ -12,12 +12,12 @@ define('IANSELP_MODULE', 'ianselp');
 function ianselp_Defaults()
 {
     return array(
-        'events'  => array(),   // codes d'épreuve à afficher ; vide = toutes
-        'rotate'  => 12,        // secondes par écran
-        'refresh' => 10,        // secondes entre deux interrogations du serveur
-        'rows'    => 12,        // lignes par écran
-        'dist'    => 0,         // 0 = total, sinon n° de distance
-        'title'   => '',        // titre libre ; vide = nom du concours
+        'events'    => array(), // codes d'épreuve à afficher ; vide = toutes
+        'scrollsec' => 20,      // secondes pour faire défiler une hauteur d'écran
+        'refresh'   => 10,      // secondes entre deux interrogations du serveur
+        'rows'      => 12,      // lignes visibles à l'écran (pilote la taille du texte)
+        'dist'      => 0,       // 0 = total, sinon n° de distance
+        'title'     => '',      // titre libre ; vide = nom du concours
     );
 }
 
@@ -53,12 +53,12 @@ function ianselp_GetConfig($TourId)
     }
 
     // Garde-fous : des valeurs aberrantes rendraient l'affichage inutilisable.
-    $cfg['events']  = is_array($cfg['events']) ? $cfg['events'] : array();
-    $cfg['rotate']  = max(3,  min(120, (int)$cfg['rotate']));
-    $cfg['refresh'] = max(3,  min(300, (int)$cfg['refresh']));
-    $cfg['rows']    = max(4,  min(40,  (int)$cfg['rows']));
-    $cfg['dist']    = max(0,  min(8,   (int)$cfg['dist']));
-    $cfg['title']   = (string)$cfg['title'];
+    $cfg['events']    = is_array($cfg['events']) ? $cfg['events'] : array();
+    $cfg['scrollsec'] = max(5, min(120, (int)$cfg['scrollsec']));
+    $cfg['refresh']   = max(3, min(300, (int)$cfg['refresh']));
+    $cfg['rows']      = max(4, min(40,  (int)$cfg['rows']));
+    $cfg['dist']      = max(0, min(8,   (int)$cfg['dist']));
+    $cfg['title']     = (string)$cfg['title'];
 
     return $cfg;
 }
